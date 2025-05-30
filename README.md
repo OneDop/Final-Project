@@ -1,1 +1,10 @@
-# Final-Project
+"Docker Final Project" 
+"##Team Members" 
+"Najd" 
+"Joseph" 
+"" 
+"##Project Overview" 
+"This project is about finding age of 180 degrees employees by name depends on a database" 
+"##Initial task plan" 
+"Najd-Did the database, backend and frontend" 
+"Joseph- Clone the project and add Docker file, Docker compose and .dockerignore" 
