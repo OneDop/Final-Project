@@ -1,0 +1,12 @@
+{
+  "name": "mongo-express-age-app",
+  "version": "1.0.0",
+  "main": "age.js",
+  "scripts": {
+    "start": "node age.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^7.8.7"
+  }
+}
