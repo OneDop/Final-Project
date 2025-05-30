@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Find Age by Name</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px 0;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Find Age by Name</h1>
+
+  <input type="text" id="nameInput" placeholder="Enter name" />
+  <button id="findBtn">Find Age</button>
+
+  <div id="result"></div>
+
+  <hr />
+
+  <h2>Add New Person</h2>
+  <input type="text" id="addName" placeholder="Name" />
+  <input type="number" id="addAge" placeholder="Age" />
+  <button id="addBtn">Add Person</button>
+
+  <div id="addResult"></div>
+
+  <script>
+    document.getElementById('findBtn').onclick = async () => {
+      const name = document.getElementById('nameInput').value.trim();
+      if (!name) {
+        alert('Please enter a name');
+        return;
+      }
+      const res = await fetch(`/api/find/${encodeURIComponent(name)}`);
+      const resultDiv = document.getElementById('result');
+      if (res.ok) {
+        const data = await res.json();
+        resultDiv.textContent = `${data.name}'s age is ${data.age}`;
+      } else {
+        resultDiv.textContent = 'No record found';
+      }
+    };
+
+    document.getElementById('addBtn').onclick = async () => {
+      const name = document.getElementById('addName').value.trim();
+      const age = Number(document.getElementById('addAge').value);
+      if (!name || !age) {
+        alert('Please enter both name and age');
+        return;
+      }
+      const res = await fetch('/api/add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, age })
+      });
+      const addResultDiv = document.getElementById('addResult');
+      if (res.ok) {
+        addResultDiv.textContent = 'Person added successfully!';
+        document.getElementById('addName').value = '';
+        document.getElementById('addAge').value = '';
+      } else {
+        addResultDiv.textContent = 'Failed to add person.';
+      }
+    };
+  </script>
+</body>
+</html>
